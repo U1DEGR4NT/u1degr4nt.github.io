@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEATMAKER U1DEGR4NT - Brazilian Funk / FL Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-red: #ff1744;
+            --neon-purple: #d500f9;
+            --neon-blue: #00b0ff;
+            --bg-dark: #0a0015;
+            --text-light: #f0f0ff;
+            --text-dim: #b0b0e0;
+            --glow: 0 0 25px var(--neon-red), 0 0 50px var(--neon-purple), 0 0 80px var(--neon-blue);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--text-light);
+            background: var(--bg-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        #bg-gradient {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0015, #1a0033, #0a0015);
+            background-size: 300% 300%;
+            animation: gradient 18s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particles { position: fixed; inset: 0; z-index: -1; opacity: 0.7; pointer-events: none; }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10,0,25,0.85);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 0;
+            z-index: 100;
+            box-shadow: var(--glow);
+        }
+
+        .brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.4rem;
+            color: var(--neon-red);
+            text-shadow: var(--glow);
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            transition: all 0.4s;
+        }
+
+        nav a:hover {
+            color: white;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            box-shadow: var(--glow);
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 120px 20px 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            z-index: -1;
+            filter: brightness(0.7) contrast(1.2);
+        }
+
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow);
+        }
+
+        h1 { font-size: 6rem; margin-bottom: 1rem; animation: pulse 4s infinite; }
+        h2 { font-size: 3.8rem; margin-bottom: 3rem; }
+
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.92; } }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(20,0,40,0.7);
+            border: 2px solid var(--neon-purple);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.4s;
+            box-shadow: var(--glow);
+        }
+
+        .social-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-purple));
+        }
+
+        .spotify-embed {
+            width: 100%;
+            max-width: 660px;
+            height: 380px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--glow);
+        }
+
+        .collapsible {
+            background: rgba(20,0,40,0.75);
+            border: 2px solid var(--neon-purple);
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .collapsible:hover { box-shadow: var(--glow); transform: translateY(-6px); }
+
+        .collapsible-header {
+            padding: 1.5rem 2rem;
+            font-size: 1.6rem;
+            cursor: pointer;
+            background: linear-gradient(to right, rgba(255,23,68,0.15), transparent);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 0 2rem 2rem;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .add-btn {
+            display: block;
+            margin: 2rem auto;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-red));
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: var(--glow);
+            transition: all 0.4s;
+            animation: btn-glow 3s infinite;
+        }
+
+        .add-btn:hover { transform: scale(1.08); }
+
+        @keyframes btn-glow {
+            0%,100% { box-shadow: 0 0 20px var(--neon-blue); }
+            50% { box-shadow: 0 0 50px var(--neon-purple); }
+        }
+
+        .content-block {
+            background: rgba(15,0,35,0.8);
+            border: 1px solid var(--neon-blue);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .content-block audio, .content-block video, .content-block iframe {
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            background: var(--neon-red);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        form {
+            display: grid;
+            gap: 1.2rem;
+            max-width: 700px;
+            margin: 2rem auto;
+        }
+
+        input, textarea {
+            padding: 1rem;
+            background: rgba(30,0,50,0.6);
+            border: 1px solid var(--neon-purple);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        form button {
+            background: var(--neon-red);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: var(--glow);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 1rem 6rem;
+            background: rgba(10,0,25,0.9);
+            border-top: 2px solid var(--neon-purple);
+        }
+
+        footer .social-links {
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            h1 { font-size: 4.2rem; }
+            h2 { font-size: 2.8rem; }
+            nav ul { gap: 1.2rem; font-size: 1.1rem; }
+            .social-btn { padding: 0.8rem 1.5rem; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="bg-gradient"></div>
+<canvas id="particles"></canvas>
+
+<nav>
+    <div class="brand">BEATMAKER U1DEGR4NT</div>
+    <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About Funk</a></li>
+        <li><a href="#fl">FL Studio</a></li>
+        <li><a href="#tracks">My Tracks</a></li>
+        <li><a href="#work">My Work</a></li>
+        <li><a href="#projects">My Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section id="hero" style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding-top:80px;">
+    <h1>BRAZILIAN FUNK</h1>
+    <p style="font-size:2rem; margin:1rem 0 2rem; text-shadow: var(--glow);">Raw Baile Energy • 150-180 BPM Heat • Produced in FL Studio</p>
+
+    <iframe class="spotify-embed" src="https://open.spotify.com/embed/artist/6rYgikGkdS66bCfTQPBh45" frameborder="0" allow="encrypted-media"></iframe>
+
+    <div class="social-links">
+        <a href="https://t.me/U1DEGR4NT" target="_blank" class="social-btn">Telegram @U1DEGR4NT</a>
+        <a href="https://www.tiktok.com/@uidegrant" target="_blank" class="social-btn">TikTok @uidegrant</a>
+        <a href="https://www.tiktok.com/@djuidegrant" target="_blank" class="social-btn">TikTok @djuidegrant</a>
+        <a href="https://open.spotify.com/artist/6rYgikGkdS66bCfTQPBh45" target="_blank" class="social-btn">Spotify</a>
+    </div>
+</section>
+
+<section id="about">
+    <div class="section-bg" style="background-image: url('https://images.steamusercontent.com/ugc/1695028324681238450/62D6EC4C5856699ECCCBC9EFF27322A399BA5B7E/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');"></div>
+    <h2>About Brazilian Funk</h2>
+    <div class="collapsible">
+        <div class="collapsible-header">Baile Funk / Funk Carioca Core</div>
+        <div class="collapsible-content">
+            <p>Fast, aggressive, street-born. Tamborzão drums, heavy 808 slides, MC shouts, favela chaos — pure adrenaline for bailes, cars, TikTok, raves.</p>
+        </div>
+    </div>
+    <div class="collapsible">
+        <div class="collapsible-header">Modern 2025–2026 Evolution</div>
+        <div class="collapsible-content">
+            <p>Neon-infused hybrids, trap 808s, global viral-ready drops. Still 100% rooted in Rio energy.</p>
+        </div>
+    </div>
+</section>
+
+<section id="fl">
+    <div class="section-bg" style="background-image: url('https://images.stockcake.com/public/f/0/c/f0c2bfe4-c3e2-49e6-b94c-0ba51cfe8883/neon-studio-magic-stockcake.jpg');"></div>
+    <h2>FL Studio Arsenal</h2>
+    <div class="collapsible">
+        <div class="collapsible-header">Core Workflow</div>
+        <div class="collapsible-content">
+            <p>FPC + custom tamborzão kits • Layered 808s + distortion • Gross Beat swings • Serum screeches • Edison chops • loud mastering chain.</p>
+        </div>
+    </div>
+    <div class="collapsible">
+        <div class="collapsible-header">Power Moves</div>
+        <div class="collapsible-content">
+            <p>OTT multiband • Fruity Blood Overdrive • NewTone vocal formant tricks • Maximus + Ozone → club-ready loudness.</p>
+        </div>
+    </div>
+</section>
+
+<section id="tracks">
+    <div class="section-bg" style="background-image: url('https://thumbs.dreamstime.com/b/dynamic-neon-equalizer-background-vibrant-sound-wave-visuals-modern-design-inspiration-experience-electrifying-energy-373419822.jpg');"></div>
+    <h2>My Tracks</h2>
+    <div id="tracks-container"></div>
+    <button class="add-btn" onclick="addTrack()">+ Add Track</button>
+</section>
+
+<section id="work">
+    <div class="section-bg" style="background-image: url('https://media.pitchfork.com/photos/5e57dd9b19382e0008724954/16:9/w_1408,h_792,c_limit/urbano%20collage%202.jpg');"></div>
+    <h2>My Work</h2>
+    <div class="content-block" style="text-align:center; padding:3rem 2rem;">
+        <p style="font-size:1.8rem; margin-bottom:1.5rem;">Raw Brazilian Funk producer • Heavy tamborzão & mandelão beats • 150-180 BPM fire straight from the underground.</p>
+        <p style="font-size:1.4rem; margin:2rem 0; color:var(--neon-blue);">Stream my latest on Spotify • Follow for exclusives on TikTok • Hit me on Telegram for collabs/customs/packs</p>
+
+        <iframe class="spotify-embed" src="https://open.spotify.com/embed/artist/6rYgikGkdS66bCfTQPBh45" frameborder="0" allow="encrypted-media"></iframe>
+
+        <div class="social-links" style="margin:3rem 0;">
+            <a href="https://open.spotify.com/artist/6rYgikGkdS66bCfTQPBh45?si=HRVFiiR_SIOSj-sl8c2s0A" target="_blank" class="social-btn">Listen on Spotify</a>
+            <a href="https://t.me/U1DEGR4NT" target="_blank" class="social-btn">Telegram @U1DEGR4NT</a>
+            <a href="https://www.tiktok.com/@uidegrant" target="_blank" class="social-btn">TikTok @uidegrant</a>
+            <a href="https://www.tiktok.com/@djuidegrant" target="_blank" class="social-btn">TikTok @djuidegrant</a>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <div class="section-bg" style="background-image: url('https://thumbs.dreamstime.com/b/neon-drenched-synthwave-music-studio-d-background-room-retro-futuristic-design-glowing-keyboards-analog-synthesizers-368907663.jpg');"></div>
+    <h2>My Projects</h2>
+    <div id="projects-container"></div>
+    <button class="add-btn" onclick="addProject()">+ Add Project</button>
+</section>
+
+<section id="contact">
+    <h2>Get In Touch</h2>
+    <p style="text-align:center; font-size:1.6rem; margin-bottom:2rem; text-shadow: var(--glow);">DM me for collabs, customs, packs or features</p>
+
+    <div class="social-links" style="margin-bottom:3rem;">
+        <a href="https://t.me/U1DEGR4NT" target="_blank" class="social-btn">Telegram @U1DEGR4NT</a>
+        <a href="https://www.tiktok.com/@uidegrant" target="_blank" class="social-btn">TikTok @uidegrant</a>
+        <a href="https://www.tiktok.com/@djuidegrant" target="_blank" class="social-btn">TikTok @djuidegrant</a>
+        <a href="https://open.spotify.com/artist/6rYgikGkdS66bCfTQPBh45" target="_blank" class="social-btn">Spotify Artist</a>
+    </div>
+
+    <form>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Email / Social Handle">
+        <textarea placeholder="Message / Collab Idea" rows="5"></textarea>
+        <button type="submit">Send Heat</button>
+    </form>
+</section>
+
+<footer>
+    <div class="social-links">
+        <a href="https://t.me/U1DEGR4NT" target="_blank" class="social-btn">Telegram @U1DEGR4NT</a>
+        <a href="https://www.tiktok.com/@uidegrant" target="_blank" class="social-btn">TikTok @uidegrant</a>
+        <a href="https://www.tiktok.com/@djuidegrant" target="_blank" class="social-btn">TikTok @djuidegrant</a>
+        <a href="https://open.spotify.com/artist/6rYgikGkdS66bCfTQPBh45" target="_blank" class="social-btn">Spotify</a>
+    </div>
+    <p style="margin-top:2rem; font-size:1.2rem;">© 2026 BEATMAKER U1DEGR4NT • All rights reserved • Tamborzão forever</p>
+</footer>
+
+<script>
+// Particles
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', ()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+
+let particlesArray = [];
+class Particle {
+    constructor(){ 
+        this.x = Math.random()*canvas.width; 
+        this.y = Math.random()*canvas.height; 
+        this.size = Math.random()*4+1; 
+        this.speedX = Math.random()*2-1; 
+        this.speedY = Math.random()*2-1; 
+        this.color = `hsl(${Math.random()*60+300},100%,60%)`;
+    }
+    update(){ this.x+=this.speedX; this.y+=this.speedY; if(this.size>0.2)this.size-=0.08; }
+    draw(){ ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+}
+
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(Math.random()>0.92) particlesArray.push(new Particle());
+    for(let i=particlesArray.length-1;i>=0;i--){
+        particlesArray[i].update(); particlesArray[i].draw();
+        if(particlesArray[i].size<=0.2){ particlesArray.splice(i,1); }
+    }
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// Collapsibles
+document.querySelectorAll('.collapsible-header').forEach(h => {
+    h.addEventListener('click', () => {
+        const content = h.nextElementSibling;
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+// Add Track
+function addTrack() {
+    const c = document.getElementById('tracks-container');
+    const div = document.createElement('div');
+    div.className = 'content-block';
+    div.innerHTML = `
+        <input type="text" placeholder="Track Name" style="font-size:1.4rem; margin-bottom:1rem; width:100%; padding:0.8rem; background:rgba(40,0,60,0.7); border:1px solid var(--neon-purple); color:white; border-radius:8px;">
+        <textarea placeholder="Description / Tags" rows="3" style="width:100%; padding:0.8rem; background:rgba(40,0,60,0.7); border:1px solid var(--neon-blue); color:white; border-radius:8px;"></textarea>
+        <input type="file" accept="audio/*" onchange="this.nextElementSibling.src = URL.createObjectURL(this.files[0])" style="margin:1rem 0; color:white;">
+        <audio controls></audio>
+        <button class="remove-btn" onclick="this.parentElement.remove()">× Remove</button>
+    `;
+    c.appendChild(div);
+}
+
+// Add Project
+function addProject() {
+    const c = document.getElementById('projects-container');
+    const div = document.createElement('div');
+    div.className = 'content-block';
+    div.innerHTML = `
+        <input type="text" placeholder="Project / EP Name" style="font-size:1.4rem; margin-bottom:1rem; width:100%; padding:0.8rem; background:rgba(40,0,60,0.7); border:1px solid var(--neon-purple); color:white; border-radius:8px;">
+        <textarea placeholder="Description / Concept" rows="4" style="width:100%; padding:0.8rem; background:rgba(40,0,60,0.7); border:1px solid var(--neon-blue); color:white; border-radius:8px;"></textarea>
+        <input type="text" placeholder="YouTube Embed URL[](https://www.youtube.com/watch?v=...)" style="width:100%; padding:0.8rem; margin:1rem 0; background:rgba(40,0,60,0.7); border:1px solid var(--neon-purple); color:white; border-radius:8px;" oninput="updateEmbed(this)">
+        <iframe width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+        <input type="file" accept="video/*" onchange="this.nextElementSibling.src = URL.createObjectURL(this.files[0])" style="margin:1rem 0; color:white;">
+        <video controls style="max-height:400px;"></video>
+        <button class="remove-btn" onclick="this.parentElement.remove()">× Remove</button>
+    `;
+    c.appendChild(div);
+}
+
+function updateEmbed(input) {
+    const iframe = input.parentElement.querySelector('iframe');
+    let url = input.value.trim();
+    if (url.includes('youtube.com/watch?v=')) {
+        const id = url.split('v=')[1]?.split('&')[0];
+        if (id) iframe.src = `https://www.youtube.com/embed/${id}`;
+    }
+}
+</script>
+</body>
+</html>
